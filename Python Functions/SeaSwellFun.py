@@ -152,7 +152,8 @@ def SeaSwellFun(input,fs,duration,nfft,h,fmin,fmax,ftailcorrection,tailpower,fmi
     #--------------------------------------------------------------------------
     #calculating Fast Fourier transform and power density
 
-    if (fmax>fs/2): fmax=int(fs/2)
+    if (fmax>fs/2): 
+        fmax=int(fs/2)
     #nfft = 2^(nextpow2(length(input1)))
 
     #--------------------------------------------------------------------------
@@ -225,7 +226,8 @@ def SeaSwellFun(input,fs,duration,nfft,h,fmin,fmax,ftailcorrection,tailpower,fmi
     fm=fstar[loc1]
     fseparation=24.2084*fm**3-9.2021*fm**2+1.8906*fm-0.04286
 
-    if ((fseparation>fmaxswell) or (np.isinf(fseparation)==1) or (np.isnan(fseparation)==1) or (fseparation==0)): fseparation=fmaxswell #fseperation is about 0.2 in Gulf of Mexico
+    if ((fseparation>fmaxswell) or (np.isinf(fseparation)==1) or (np.isnan(fseparation)==1) or (fseparation==0)): 
+        fseparation=fmaxswell #fseperation is about 0.2 in Gulf of Mexico
         
     #calculate the exact location of separation frequency
     loc2=len((np.nonzero(f<=fseparation))[0])-1 #location of fseperation
@@ -234,7 +236,8 @@ def SeaSwellFun(input,fs,duration,nfft,h,fmin,fmax,ftailcorrection,tailpower,fmi
     loc7=np.argmin(Syy[((f<fpsea1) & (f>fpswell1))])
     loc8=len((np.nonzero(f<=fpswell1))[0])-1
     fseparation=f[loc7+loc8+1]
-    if ((fseparation>fmaxswell) | (np.isinf(fseparation)==1) | (np.isnan(fseparation)==1) | (fseparation==0)): fseparation=fmaxswell #fseperation is about 0.2 in Gulf of Mexico
+    if ((fseparation>fmaxswell) | (np.isinf(fseparation)==1) | (np.isnan(fseparation)==1) | (fseparation==0)): 
+        fseparation=fmaxswell #fseperation is about 0.2 in Gulf of Mexico
     #if (len(fseparation)==0): fseparation=fmaxswell #fseperation is about 0.2 in Gulf of Mexico
 
     #--------------------------------------------------------------------------
@@ -297,3 +300,4 @@ def SeaSwellFun(input,fs,duration,nfft,h,fmin,fmax,ftailcorrection,tailpower,fmi
     return Hm0,Hm0sea,Hm0swell,Tp,Tpsea,Tpswell,fp,fseparation,f,Syy
 
     #--------------------------------------------------------------------------
+
