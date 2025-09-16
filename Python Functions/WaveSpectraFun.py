@@ -145,7 +145,8 @@ def WaveSpectraFun(input,fs,duration,nfft,h,heightfrombed,fmin,fmax,ftailcorrect
     #--------------------------------------------------------------------------
     #calculating Fast Fourier transform and power density
 
-    if (fmax>fs/2): fmax=int(fs/2)
+    if (fmax>fs/2): 
+        fmax=int(fs/2)
     #nfft = 2^(nextpow2(length(input1)))
 
     #--------------------------------------------------------------------------
@@ -243,3 +244,4 @@ def WaveSpectraFun(input,fs,duration,nfft,h,heightfrombed,fmin,fmax,ftailcorrect
     return Hm0,Tm01,Tm02,Tp,fp,f,Syy
 
     #--------------------------------------------------------------------------
+
