@@ -134,7 +134,8 @@ def PcorFFTFun(input,fs,duration,nfft,h,heightfrombed,fminpcorr,fmaxpcorr,ftailc
 
     #--------------------------------------------------------------------------
 
-    if (fmaxpcorr>fs/2) : fmaxpcorr=int(fs/2)
+    if (fmaxpcorr>fs/2): 
+        fmaxpcorr=int(fs/2)
     #nfft = 2^(nextpow2(len_))
     f=np.linspace(0,fs,len_) #frequency
     w=2*np.pi*f #Angular frequency
@@ -183,16 +184,22 @@ def PcorFFTFun(input,fs,duration,nfft,h,heightfrombed,fminpcorr,fmaxpcorr,ftailc
         locSyymax=np.argmax(Syy[locfminpcorr:]) # Locating the peak frequency, fp, of original dataset
         fmaxpcorrL=1/(2*np.pi)*np.sqrt(9.81*kmaxL*np.tanh(kmaxL*h)) # Maximum frequency that K_p can be applied, calculated from linear wave theory
         locfmaxpcorrL=int(np.max((np.nonzero(f<=fmaxpcorrL))[0])) #Location the location of fmaxpcorr1
-        if (locfmaxpcorrL<locfminpcorr+(locSyymax)): locfmaxpcorrL=locfminpcorr+(locSyymax) #Check if locfmaxpcorrL locataed after fp
+        if (locfmaxpcorrL<locfminpcorr+(locSyymax)): 
+            locfmaxpcorrL=locfminpcorr+(locSyymax) #Check if locfmaxpcorrL locataed after fp
         Syy1=Syy/(Kp**2)
         locSyymin=np.argmin(Syy1[locfminpcorr+(locSyymax):locfmaxpcorrL+1]) #Locating the location of minimum value for Syy between fp and fmaxpcorr1
         fmaxpcorr1=f[locfminpcorr+(locSyymax)+(locSyymin)] #Asigning the frequency of the location of minimum value for Syy between fp and fmaxpcorr1
         ftailcorrection1=f[locfminpcorr+(locSyymax)+(locSyymin)]
-        if (fmaxpcorr1>fmaxpcorrL): fmaxpcorr1=fmaxpcorrL #Check fmaxpcorr1 be smaller than fmaxpcorrL
-        if ((fmaxpcorr1==f[locfminpcorr+(locSyymax)]) and (fmaxpcorrL>f[locfminpcorr+(locSyymax)])): fmaxpcorr1=fmaxpcorrL #if fmaxpcorrL>fp then fmaxpcorr1 should not be equal to fp
-        if (ftailcorrection1>fmaxpcorrL): ftailcorrection1=fmaxpcorrL
-        if (fmaxpcorr>fmaxpcorr1): fmaxpcorr=fmaxpcorr1
-        if (ftailcorrection>ftailcorrection1): ftailcorrection=ftailcorrection1
+        if (fmaxpcorr1>fmaxpcorrL): 
+            fmaxpcorr1=fmaxpcorrL #Check fmaxpcorr1 be smaller than fmaxpcorrL
+        if ((fmaxpcorr1==f[locfminpcorr+(locSyymax)]) and (fmaxpcorrL>f[locfminpcorr+(locSyymax)])): 
+            fmaxpcorr1=fmaxpcorrL #if fmaxpcorrL>fp then fmaxpcorr1 should not be equal to fp
+        if (ftailcorrection1>fmaxpcorrL): 
+            ftailcorrection1=fmaxpcorrL
+        if (fmaxpcorr>fmaxpcorr1): 
+            fmaxpcorr=fmaxpcorr1
+        if (ftailcorrection>ftailcorrection1): 
+            ftailcorrection=ftailcorrection1
 
 
     if pressureattenuation=='off':
@@ -205,14 +212,16 @@ def PcorFFTFun(input,fs,duration,nfft,h,heightfrombed,fminpcorr,fmaxpcorr,ftailc
         # linear decrease of correction for f larger than maximum frequency
         loc1=int(np.max((np.nonzero(f<=fmaxpcorr-0.05))[0]))
         loc2=int(np.max((np.nonzero(f<=fmaxpcorr+0.05))[0]))
-        if (loc2>len(f)): loc2=len(f)
+        if (loc2>len(f)): 
+            loc2=len(f)
         for i in range(loc1,loc2+1,1):
             Kp[i]=(Kp[loc2]-Kp[loc1])/(loc2-loc1)*(i-loc1)+Kp[loc1]
 
 
     elif pressureattenuation=='all':
         loc2=int(np.max((np.nonzero(f<=fmaxpcorr))[0]))
-        if (loc2>len(f)): loc2=len(f)
+        if (loc2>len(f)): 
+            loc2=len(f)
         Kp[f>fmaxpcorr]=Kp[loc2] # correction factor larger than fmaxpcorr stays constant
 
 
@@ -242,3 +251,4 @@ def PcorFFTFun(input,fs,duration,nfft,h,heightfrombed,fminpcorr,fmaxpcorr,ftailc
     return Eta, ftailcorrection
 
     #--------------------------------------------------------------------------
+
